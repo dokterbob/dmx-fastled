@@ -143,11 +143,8 @@ void setup() {
 
     pinMode(ONBOARD_LED, OUTPUT);
 
-    FastLED.addLeds<ESPDMX>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
-    FastLED.setBrightness(  BRIGHTNESS );
-
-    currentPalette = RainbowColors_p;
-    currentBlending = LINEARBLEND;
+    FastLED.addLeds<ESPDMX>(leds, NUM_LEDS); //.setCorrection( TypicalLEDStrip );
+    // FastLED.setBrightness(  BRIGHTNESS );
 }
 
 
@@ -155,15 +152,12 @@ void loop()
 {
     digitalWrite(ONBOARD_LED,HIGH);
 
-    ChangePalettePeriodically();
-
-    static uint8_t startIndex = 0;
-    startIndex = startIndex + 1; /* motion speed */
-
-    FillLEDsFromPaletteColors( startIndex);
+    leds[0] = CRGB::Red;
+    leds[1] = CRGB::Green;
+    leds[2] = CRGB::Blue;
 
     FastLED.show();
-    FastLED.delay(1000 / UPDATES_PER_SECOND);
+    FastLED.delay(1000);
 }
 
 

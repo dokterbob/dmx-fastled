@@ -3,7 +3,7 @@
 
 #define ONBOARD_LED 2
 
-#define NUM_LEDS    3
+#define NUM_LEDS 9
 
 CRGB leds[NUM_LEDS];
 candle::Candle candles[NUM_LEDS];
@@ -24,10 +24,10 @@ void setup() {
         leds[i] = CRGB::Black;
 
         // Initialize candles
-        candles[i].init(random8(16, 96), 255, random8(3, 8), random8(6, 22));
+        candles[i].init(96, 255, 2, 96);
 
         // Initialize random saturation
-        saturation[i].init(random8(112, 240), random8(241, 255), random8(10, 20), random8(22, 62));
+        saturation[i].init(112, 255, 20, 62);
 
     }
 }
@@ -38,13 +38,15 @@ void loop()
 {
     digitalWrite(ONBOARD_LED,HIGH);
 
-    EVERY_N_MILLIS(20) {
+    EVERY_N_MILLIS(16) {
       for (size_t i=0; i<NUM_LEDS; i++) {
-          leds[i] = CHSV(hue + i*120, saturation[i].get_next_brightness(), candles[i].get_next_brightness());
+          leds[i] = CHSV(
+            add8(hue, mul8(i, 120)),
+            saturation[i].get_next_brightness(),
+            candles[i].get_next_brightness()
+          );
       }
     }
-
-    fill_rainbow(leds, NUM_LEDS, hue, 360/NUM_LEDS);
 
     FastLED.show();
 

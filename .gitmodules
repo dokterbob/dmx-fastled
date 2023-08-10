@@ -1,0 +1,7 @@
+[submodule "lib/FastLED"]
+	path = lib/FastLED
+	url = https://github.com/dokterbob/FastLED.git
+	branch = esp_dmx
+[submodule "lib/Candle"]
+	path = lib/Candle
+	url = https://github.com/dokterbob/Candle.git
